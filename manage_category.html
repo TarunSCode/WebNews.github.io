@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Admin</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="home.html">Home</a>
+      </li>
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          News Management
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="add_news.html">Add News</a>
+          <a class="dropdown-item" href="#">Manage News</a>
+
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          Category Management
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="add_category.html">Add Category</a>
+          <a class="dropdown-item" href="manage_category.html">Manage Category</a>
+
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          SubCategory Management
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Add SubCategory</a>
+          <a class="dropdown-item" href="#">Manage SubCategory</a>
+
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <div class="container">
+    <table class="table table-bordered" id="example" class="display" style="width:100%">
+      <thead>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Action</th>
+      </thead>
+      <tbody id="showdata1">
+
+      </tbody>
+    </table>
+  </div>
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form class="text-center" method="post" onsubmit="formEditHandler(event)">
+          <div class="w-50 m-auto form-group text-center">
+            <label for="exampleInputEmail1">Edit Category</label>
+            <input type="hidden" id="hiddenid"> 
+            <input type="text" class="w-80 form-control" id="editInput" aria-describedby="emailHelp">
+          </div>
+          <button type="submit" class="mb-2 mt-2 btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <script>
+    let tbody = document.getElementById("showdata1");
+    let count = 0;
+    let bodydata = "";
+    function showdata() {
+      let cdata = localStorage.getItem("category");
+      if (cdata == null) {
+        catarr = []
+      }
+      else {
+        catarr = JSON.parse(cdata);
+      }
+      // console.log(catarr)
+      catarr.forEach((items, index) => {
+        bodydata += `<tr><td>${++count}</td><td>${items}</td><td><button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="edit(${index})">Edit</button>
+          <button class="btn btn-danger" onclick="delcat(${index})">Delete</button></td></tr>`
+
+      })
+      tbody.innerHTML = bodydata;
+
+    }
+    showdata();
+
+    // -----------------------------Delete Function-----------------------------------------------//
+
+    function delcat(index_num) {
+      let data = confirm("Are You sure to delete category")
+      if (data == true) {
+        let delcatdata = localStorage.getItem("category")
+        if (delcatdata == null) {
+          arr = [];
+        }
+        else {
+          arr = JSON.parse(delcatdata)
+        }
+        let del_cat_data = arr.filter((item, index) => {
+          return index_num != index
+        });
+        localStorage.setItem("category", JSON.stringify(del_cat_data))
+        alert("Category Deleted");
+        window.location = "manage_category.html"
+      }
+      else {
+        return false
+      }
+
+    }
+        /*0 1 2 3 4 */
+        /*1 2 3 4 5*/
+    // -----------------------------Edit Function-----------------------------------------------//
+
+    function edit(editid) {
+      let editcatdata = localStorage.getItem("category");
+      if (editcatdata == null) {
+        cateditarr = []
+      }
+      else {
+        cateditarr = JSON.parse(editcatdata);
+      }
+      console.log(catarr);
+      let cat_edit_data = cateditarr.filter((item, index) => {
+        return editid == index;
+      });
+      console.log(cat_edit_data);
+      document.getElementById("editInput").value = cat_edit_data
+      document.getElementById("hiddenid").value = editid
+    }
+
+    function formEditHandler(event) {
+      event.preventDefault();
+      let inputname = document.getElementById("editInput").value;
+      let id = document.getElementById("hiddenid").value;
+      console.log(inputname, id);
+      let editcatdata = localStorage.getItem("category");
+      if (editcatdata == null) {
+        updatedata = []
+      }
+      else {
+        updatedata = JSON.parse(editcatdata);
+      }
+      updatedata[id] = inputname;
+      localStorage.setItem("category", JSON.stringify(updatedata));
+      window.location = "manage_category.html"
+    }
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#example').DataTable();
+    });
+  </script>
+
+</body>
+
+</html>

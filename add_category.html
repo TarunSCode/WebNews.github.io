@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">Admin</a>
+      
+        <!-- Links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="home.html">Home</a>
+          </li>
+          
+          <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                News Management 
+             </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="add_news.html">Add News</a>
+              <a class="dropdown-item" href="#">Manage News</a>
+
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Category Management
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="add_category.html">Add Category</a>
+              <a class="dropdown-item" href="manage_category.html">Manage Category</a>
+
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                SubCategory Management
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Add SubCategory</a>
+              <a class="dropdown-item" href="#">Manage SubCategory</a>
+
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+    <!-- ----------------------------------------------------------- -->
+    <section class="vh-100 bg-image"
+        style="background-image: url('/photo-1536920007443-6f325ce74a30.jpg');">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px; background-image: url(/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png);">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-5"> <i class="fa fa-user-o"
+                                        aria-hidden="true"></i>Enter Category Name </h2>
+                                 <form action="" onsubmit="addcate()">
+                                        <input type="text" id="inp1" class="form-control form-control-lg"/>
+                                        <button class="btn btn-primary mt-3 btn-block btn-lg gradient-custom-4 text-body " onclick="addnews()">Add</button>                  
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function addcate(){
+            let inpcat = document.getElementById("inp1").value;
+            let localdata = localStorage.getItem("category")
+            if(localdata == null){
+                arr =[];
+            }
+            else{
+                arr = JSON.parse(localdata)
+            }
+            let catresult = arr.filter((items , index)=>{
+              return items == inpcat
+            })
+            // console.log(catresult);
+            if(catresult.length > 0){
+              window.location = "manage_category.html"
+              alert("category already exists");
+            }
+            
+            else{
+              window.location = "manage_category.html"
+              arr.push(inpcat);
+              localStorage.setItem("category",JSON.stringify(arr));
+              alert("category Added");
+            }
+            
+            
+        }
+         
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

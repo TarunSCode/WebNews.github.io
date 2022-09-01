@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User_login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <section class="vh-100 bg-image" style="background-image: url(/luke-chesser-IGtutkXikuc-unsplash.jpg);">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card"
+                            style="border-radius: 15px; background-image: url(/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png);">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-5"> <i class="fa fa-user-o"
+                                        aria-hidden="true"></i> USER LOGIN</h2>
+
+                                <form action="" onsubmit="adminlogin(event)">
+
+                                    <div class="form-outline mb-4">
+                                        <input type="text" id="nm" class="form-control form-control-lg" />
+                                        <label class="form-label text"> <i class="fa fa-user-o" aria-hidden="true"></i>
+                                            User Name</label>
+                                    </div>
+
+
+                                    <div class="form-outline mb-4">
+                                        <input type="password" id="pass" class="form-control form-control-lg" />
+                                        <label class="form-label"> <i class="fa fa-lock"
+                                                aria-hidden="true"></i>Password</label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body">Login</button>
+                                    </div>
+
+                                    <p class="text-center text-muted mt-5 mb-0 ">Have already an account?<a href="#!"
+                                            class="fw-bold text-body"><u>Login here</u></a></p>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        //admin login
+
+        function adminlogin(event) {
+            event.preventDefault();
+            let uname = document.getElementById("nm").value;
+            let upassword = document.getElementById("pass").value;
+            let adminlogindata = localStorage.getItem("adminlogin");
+            console.log(adminlogindata);
+            if (adminlogindata == null) {
+                arr = [];
+            }
+            else {
+                arr = JSON.parse(adminlogindata);
+                // console.log(arr);
+                let result = arr.filter((item, index) => {
+                    return (uname == item.name && upassword == item.password);
+                });
+                // console.log(result)
+                if (result.length > 0) {
+                    window.location = "admindashboard.html"
+                }
+                else {
+                    window.location = "adminlogin.html"
+                }
+            }
+
+        }
+//.......................................................................//   
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

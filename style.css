@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+    
+.img-fluid {
+    margin-top: 30px;
+    max-width: 100%;
+    height: auto;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+.navigation-selection{
+    border: 0;
+    display: inline-block;
+}
+#collapsibleNavbar a{
+    color: black;
+    padding: 30px;
+}
+p{
+    padding: 10px;
+    text-align: justify;
+}
+.mini-footer {
+    background: #dbe0e6;
+    padding: 10px;
+    text-align: center;
+    margin-top: 22px;
+    justify-content: center;
+}
+.page-centered{
+    width: 50%;
+    height: 30%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+}
+body{
+
+}
+.Form-signin{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
